@@ -1,6 +1,6 @@
 import os.path
 
-filename = "obj/boot.o"
+filename = "obj/bootloader"
 filesize = os.path.getsize(filename)
 
 if filesize >= 510:

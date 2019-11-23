@@ -1,33 +1,34 @@
+extern bootmain
+
 bits 16
-org 0x7c00
 
 jmp start16
 
-revelation1 db "And BIOS said: Let there be bootloader. And the bootlodaer become.", 0xd, 0xa, 0x0
-revelation2 db "And the bootloader saw protected mode. And separated it from the real mode.", 0xd, 0xa, 0x0
+;revelation1 db "And BIOS said: Let there be bootloader. And the bootlodaer become.", 0xd, 0xa, 0x0
+;revelation2 db "And the bootloader saw protected mode. And separated it from the real mode.", 0xd, 0xa, 0x0
 
-print_string_si:
-    push ax                   
+;print_string_si:
+;    push ax                   
 
-    mov ah, 0x0e              
-    call print_next_char      
+;    mov ah, 0x0e              
+;    call print_next_char      
 
-    pop ax                    
-    ret                      
+;    pop ax                    
+;    ret                      
 
-print_next_char:
-    mov al, [si]              
-    cmp al, 0                 
+;print_next_char:
+;    mov al, [si]              
+;    cmp al, 0                 
 
-    jz if_zero                
+;    jz if_zero                
 
-    int 0x10                  
-    inc si                    
+;    int 0x10                  
+;    inc si                    
 
-    jmp print_next_char       
+;    jmp print_next_char       
 
-if_zero:
-    ret
+;if_zero:
+;    ret
 
 start16:
     cli
@@ -44,8 +45,8 @@ start16:
     
     mov     sp, 0x7c00
 
-    mov     si, revelation1 
-    call    print_string_si
+;    mov     si, revelation1 
+;    call    print_string_si
 
 seta20.1:
     in      al, 0x64
@@ -63,8 +64,8 @@ seta20.2:
     mov     al, 0xdf
     out     0x60, al
 
-    mov     si, revelation2
-    call    print_string_si
+;    mov     si, revelation2
+;    call    print_string_si
 
     lgdt    [gdtr32]
     mov     eax, cr0
@@ -83,7 +84,7 @@ start32:
     mov     ss, ax
     movzx   esp, sp
 
-    jmp     $
+    call bootmain
 
     hlt
 

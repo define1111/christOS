@@ -4,6 +4,7 @@ Why such a strange name? Because you can be able to do something on system progr
 
 ## Features:
 * bootloader switches from real-mode to protected-mode.
+* bootloader reads any elf-i386 kernels
 
 ## How to use it?
 0. Use this command to build the disk.img of OS:
