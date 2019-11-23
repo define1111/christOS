@@ -24,3 +24,7 @@ make clean
 
 ## How it works?
 Now it works too obvious.
+
+## References:
+* JOS
+* MINIX 3
