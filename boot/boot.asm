@@ -3,7 +3,8 @@ org 0x7c00
 
 jmp start16
 
-hello_real_mode db "Hello Bootloader World (real-mode)", 0xd, 0xa, 0
+revelation1 db "And BIOS said: Let there be bootloader. And the bootlodaer become.", 0xd, 0xa, 0x0
+revelation2 db "And the bootloader saw protected mode. And separated it from the real mode.", 0xd, 0xa, 0x0
 
 print_string_si:
     push ax                   
@@ -43,7 +44,7 @@ start16:
     
     mov     sp, 0x7c00
 
-    mov     si, hello_real_mode
+    mov     si, revelation1 
     call    print_string_si
 
 seta20.1:
@@ -61,6 +62,9 @@ seta20.2:
 
     mov     al, 0xdf
     out     0x60, al
+
+    mov     si, revelation2
+    call    print_string_si
 
     lgdt    [gdtr32]
     mov     eax, cr0
@@ -91,6 +95,3 @@ gdt32:
 gdtr32:
     dw $ - gdt32 - 1
     dd gdt32
-
-times 510 - ($-$$) db 0
-db 0x55, 0xaa
