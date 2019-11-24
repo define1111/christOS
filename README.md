@@ -3,8 +3,8 @@ This is my simple operating system designed for self-education purposes.
 Why such a strange name? Because you can be able to do something on system programming only with God's help.
 
 ## Features:
-* bootloader switches from real-mode to protected-mode.
-* bootloader reads any elf-i386 kernels
+* bootloader reads and loads any elf32-i386 kernels
+* hello-world kernel
 
 ## How to use it?
 0. Use this command to build the disk.img of OS:

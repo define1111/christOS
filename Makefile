@@ -18,15 +18,24 @@ all: disk.img
 qemu: disk.img
 	$(QEMU) $< 
 
-disk.img: obj/bootloader
+disk.img: obj/bootloader obj/kernel
 	$(DD) if=/dev/zero of=$@ bs=512 count=10000
 	$(DD) conv=notrunc if=obj/bootloader of=$@ bs=512 count=1 seek=0
+	$(DD) conv=notrunc if=obj/kernel of=$@ bs=512 seek=1
 
 obj/bootloader: obj/boot.o obj/main.o
 	$(LD) $(LDFLAGS) -N -e start -Ttext 0x7C00 -o $@.out $^
 	objdump -S $@.out > $@.asm
 	objcopy -S -O binary -j .text $@.out $@
 	$(PY) boot/verify.py
+obj/kernel: obj/entry.o obj/init.o
+	$(LD) $(LDFLAGS) -T kern/kernel.ld -o $@ $^
+
+obj/entry.o: kern/entry.asm
+	$(AS) $(ASFLAGS) $< -o $@
+
+obj/init.o: kern/init.c
+	$(CC) -nostdinc $(CFLAGS) -c -o $@ $<
 
 obj/main.o: boot/main.c
 	$(CC) -nostdinc $(CFLAGS) -Os -c -o $@ $<
