@@ -7,9 +7,8 @@ QEMU = qemu-system-i386
 
 ASFLAGS = -f elf
 
-CFLAGS += -m32 -fno-builtin -fno-omit-frame-pointer -fno-stack-protector
-CFLAGS += -Wall -Wformat=2 -Wno-unused-function -Werror
-CFLAGS += -fno-pie -I inc 
+CFLAGS += -m32 -fno-builtin -fno-omit-frame-pointer -fno-stack-protector \
+-Wall -Wformat=2 -Wno-unused-function -Werror -fno-pie -I inc \
 
 LDFLAGS = -m elf_i386
 
@@ -28,11 +27,15 @@ obj/bootloader: obj/boot.o obj/main.o
 	objdump -S $@.out > $@.asm
 	objcopy -S -O binary -j .text $@.out $@
 	$(PY) boot/verify.py
-obj/kernel: obj/entry.o obj/init.o
+
+obj/kernel: obj/entry.o obj/init.o obj/string.o
 	$(LD) $(LDFLAGS) -T kern/kernel.ld -o $@ $^
 
 obj/entry.o: kern/entry.asm
 	$(AS) $(ASFLAGS) $< -o $@
+
+obj/string.o: lib/string.c
+	$(CC) -nostdinc $(CFLAGS) -c -o $@ $<
 
 obj/init.o: kern/init.c
 	$(CC) -nostdinc $(CFLAGS) -c -o $@ $<
@@ -40,7 +43,7 @@ obj/init.o: kern/init.c
 obj/main.o: boot/main.c
 	$(CC) -nostdinc $(CFLAGS) -Os -c -o $@ $<
 
-obj/boot.o: boot/boot.asm boot/verify.py
+obj/boot.o: boot/boot.asm
 	mkdir -p obj
 	$(AS) $(ASFLAGS) $< -o $@
 

@@ -28,3 +28,4 @@ Now it works too obvious.
 ## References:
 * JOS
 * MINIX 3
+* github.com/ArseniyBorezkiy/oc-kernel/

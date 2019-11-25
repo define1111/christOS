@@ -1,5 +1,5 @@
-#include "../inc/x86.h"
-#include "../inc/elf.h"
+#include <x86.h>
+#include <elf.h>
 
 #define SECTSIZE	512
 #define ELFHDR		((struct Elf *) 0x10000)

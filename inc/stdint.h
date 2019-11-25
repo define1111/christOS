@@ -1,12 +1,9 @@
-#ifndef INC_TYPES_H
-#define INC_TYPES_H
+#ifndef INC_STDINT_H
+#define INC_STDINT_H
 
 #ifndef NULL
 #define NULL ((void*) 0)
 #endif
-
-typedef _Bool bool;
-enum { false, true };
 
 typedef unsigned char uint8_t;
 typedef short int16_t;
