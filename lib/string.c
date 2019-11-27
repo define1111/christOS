@@ -101,11 +101,11 @@ strext(char *dst, const char *s, char c)
 void *
 memset(void *v, int c, size_t n)
 {
-    char *p = (char*) v;
-    char char_c = (char) c;
+    char *dst = (char*) v;
+    size_t i;
 
-    while (--n >= 0)
-        *p++ = char_c;
+    for (i = 0; i < n; ++i)
+        *dst++ = (char) c;
 
     return v;
 }
