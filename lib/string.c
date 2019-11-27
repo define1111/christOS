@@ -102,10 +102,10 @@ void *
 memset(void *v, int c, size_t n)
 {
     char *p = (char*) v;
-    size_t m = n;
+    char char_c = (char) c;
 
-    while (--m >= 0)
-        *p++ = c;
+    while (--n >= 0)
+        *p++ = char_c;
 
     return v;
 }

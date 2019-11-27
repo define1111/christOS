@@ -9,13 +9,16 @@ _start:
     cli
 
     mov ebp, 0x0
-    mov esp, bootstack
+    mov esp, bootstacktop 
 
     call i386_init
 
     hlt
-    
 
 section .data
-bootstack:   
-
+align 4 
+global bootstack
+bootstack:
+resb 8 * 4 * 1024
+global bootstacktop
+bootstacktop:

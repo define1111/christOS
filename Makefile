@@ -8,7 +8,7 @@ QEMU = qemu-system-i386
 ASFLAGS = -f elf
 
 CFLAGS += -m32 -fno-builtin -fno-omit-frame-pointer -fno-stack-protector \
--Wall -Wformat=2 -Wno-unused-function -Werror -fno-pie -I inc \
+-Wall -Wformat=2 -Wno-unused-function -fno-pie -I inc \
 
 LDFLAGS = -m elf_i386
 
