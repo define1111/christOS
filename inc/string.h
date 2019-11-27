@@ -2,6 +2,7 @@
 #define INC_STRING_H
 
 #include <stdint.h>
+#include <stdarg.h>
 
 int strlen(const char *s);
 int strnlen(const char *s, size_t size);
@@ -19,6 +20,17 @@ char *strext(char *dst, const char *s, char c);
 void *memset(void *v, int c, size_t n);
 void *memcpy(void *dst, const void *src, size_t n);
 
-long strtil(const char *s, char **endptr, int base);
+int strspn(char *str, const char *accept);
+int strcspn(char *str, const char *rejected);
+char *strtok_r(char *str, const char *delim, char **save_ptr);
 
+char *itoa(uint32_t value, char *str, uint32_t base);
+uint32_t atou(char *str);
+
+char *strinv(char *str);
+
+uint32_t sprintf(char *s1, const char *s2, ...);
+uint32_t snprintf(char *s1, uint32_t n, const char *s2, ...);
+uint32_t vsprintf(char *s1, const char *s2, va_list list);
+uint32_t vsnprintf(char *s1, uint32_t n, const char *s2, va_list list);
 #endif
