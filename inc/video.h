@@ -11,6 +11,14 @@
 #define VIDEO_MEMORY_ADDR (0xB8000)
 #define VIDEO_MEMORY_ATTR_BLACK (0x7)
 
+/* copy buffer to screen */
+void video_flush(char *video_buff);
 
+/* scroll 1 line */
+/* char *video_scroll(char *video_buff, char *pos); */
+
+void video_init(void);
+void video_disable_cursor(void);
+void video_clear(char *video_buff);
 
 #endif

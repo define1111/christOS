@@ -17,6 +17,7 @@ int strncmp(const char *p, const char *q, size_t n);
 char *strchr(const char *s, char c);
 char *strext(char *dst, const char *s, char c);
 
+void *memext(void *dst, size_t n, const void *src, char sym);
 void *memset(void *v, int c, size_t n);
 void *memcpy(void *dst, const void *src, size_t n);
 

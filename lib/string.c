@@ -100,6 +100,22 @@ strext(char *dst, const char *s, char c)
 }
 
 void *
+memext(void *dst, size_t n, const void *src, char sym)
+{
+    uint8_t *uint_dst = (uint8_t*) dst;
+    uint8_t *uint_src = (uint8_t*) src;
+    size_t i;
+
+    for (i = 0; i < n; ++i)
+    {
+        *uint_dst++ = *uint_src++;
+        *uint_dst++ = sym;
+    }
+
+    return dst;
+}
+
+void *
 memset(void *v, int c, size_t n)
 {
     char *dst = (char*) v;
@@ -130,6 +146,8 @@ memcpy(void *dst, const void *src, size_t n)
 
     return dst;
 }
+
+
 
 int 
 strspn(char *str, const char *accept)
