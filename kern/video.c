@@ -3,13 +3,15 @@
 #include <x86.h>
 
 char *video_memory = (char*) VIDEO_MEMORY_ADDR;
-char video_memory_buff[2 * VIDEO_SCREEN_SIZE];
 
 void
 video_init()
 {
-    memset((void*)video_memory, VIDEO_MEMORY_ATTR_BLACK, VIDEO_SCREEN_SIZE);
+    char buff[VIDEO_SCREEN_SIZE];
+
     video_disable_cursor();
+    video_clear(buff);
+    video_flush(buff);
 }
 
 void
@@ -46,8 +48,10 @@ video_clear(char *video_buff)
 void
 video_flush(char *video_buff)
 {
-    memext((void*)video_memory_buff, VIDEO_SCREEN_SIZE, video_buff, VIDEO_MEMORY_ATTR_BLACK);
-    memcpy((void*)video_memory, video_memory_buff, VIDEO_SCREEN_SIZE * 2);
+    char buff[2 * VIDEO_SCREEN_SIZE];
+
+    memext(buff, VIDEO_SCREEN_SIZE, video_buff, 0x7);
+    memcpy((void*)video_memory, buff, 2 * VIDEO_SCREEN_SIZE);
 }
 
 
