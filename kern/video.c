@@ -21,21 +21,6 @@ video_disable_cursor()
     outb(0x3D5, 0x20);
 }
 
-/* char *
-video_scroll(char *video_buff, char *pos)
-{
-    int i, j;
-
-    for (i = 1; i < VIDEO_SCREEN_HEIGHT; ++i)
-        for (j = 0; j < VIDEO_SCREEN_WIDTH; ++j)
-            video_buff[(i - 1) * VIDEO_SCREEN_WIDTH + j] = video_buff[i * VIDEO_SCREEN_WIDTH + j];
-
-    for (j = 0; j < VIDEO_SCREEN_WIDTH; ++j)
-        video_buff[(VIDEO_SCREEN_HEIGHT - 1) * VIDEO_SCREEN_WIDTH + j] = ' ';
-
-    return pos;
-} */
-
 void
 video_clear(char *video_buff)
 {

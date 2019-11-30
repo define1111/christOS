@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdarg.h>
 
+void console_init(void);
 void printf(const char *format, ...);
 void vprintf(const char *format, va_list list);
 
