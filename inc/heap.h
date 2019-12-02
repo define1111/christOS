@@ -13,5 +13,5 @@ void heap_show_addr(void);
 void heap_show_bit_map(void);
 
 void *malloc(size_t size);
-
+void free(void *addr, size_t size);
 #endif

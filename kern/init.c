@@ -23,7 +23,7 @@ i386_init(void)
     heap_init();
 
     /* hello world */
-/*    printf("%s. And %u apostols will be forked.\n", msg, apostols_amount);
+    printf("%s. And %u apostols will be forked.\n", msg, apostols_amount);
 
     heap_show_addr();
 
@@ -41,7 +41,9 @@ i386_init(void)
 
     printf("%s\n%X\n%u %u %u\n%X\n", str, str, arr[0], arr[1], arr[2], arr);
 
-//    size_t *ptr = (size_t*) malloc(3);
-*/
+    size_t *ptr = (size_t*) malloc(513);
+    size_t *ptr2 = (size_t*) malloc (513);
+    free(ptr, 513);
+
     heap_show_bit_map();
 }
