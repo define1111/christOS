@@ -28,7 +28,7 @@ obj/bootloader: obj/boot.o obj/main.o
 	objcopy -S -O binary -j .text $@.out $@
 	$(PY) boot/verify.py
 
-obj/kernel: obj/entry.o obj/init.o obj/string.o obj/assert.o obj/panic.o obj/video.o obj/stdio.o
+obj/kernel: obj/entry.o obj/init.o obj/string.o obj/assert.o obj/panic.o obj/video.o obj/stdio.o obj/heap.o
 	$(LD) $(LDFLAGS) -T kern/kernel.ld -o $@ $^
 
 obj/entry.o: kern/entry.asm
@@ -47,6 +47,9 @@ obj/string.o: lib/string.c
 	$(CC) -nostdinc $(CFLAGS) -c -o $@ $<
 
 obj/stdio.o: lib/stdio.c
+	$(CC) -nostdinc $(CFLAGS) -c -o $@ $<
+
+obj/heap.o: kern/heap.c
 	$(CC) -nostdinc $(CFLAGS) -c -o $@ $<
 
 obj/init.o: kern/init.c

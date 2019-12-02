@@ -47,4 +47,6 @@ SECTIONS
 	/DISCARD/ : {
 		*(.eh_frame .note.GNU-stack)
 	}
+
+    PROVIDE(real_end = .);
 }

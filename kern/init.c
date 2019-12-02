@@ -1,25 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <video.h>
-
-int 
-factorial(int x)
-{
-    if (x == 1)
-        return 1;
-    return x * factorial(x - 1);
-}
-
-void
-test_console_scroll()
-{
-    int i;
-
-    for (i = 0; i < 19; ++i)
-    {
-        printf("test_console_scroll\n");
-    }
-}
+#include <heap.h>
 
 void
 i386_init(void)
@@ -27,20 +9,34 @@ i386_init(void)
     extern char edata[], end[];
     char *msg = "And kernel become";
     int apostols_amount = 12;
-    int x = 5;
+    
+    char *str = NULL;
+    int *arr = NULL;
 
     /* nulling bss section before doing anything */
     memset(edata, 0, end - edata);
 
-    /* init console */    
     console_init(); 
+
+    heap_init();
 
     /* hello world */
     printf("%s. And %u apostols will be forked.\n", msg, apostols_amount);
-    printf("\n");
-    printf("test\nconsole\n\n");
-    printf("factorial(%u) = %u\n", x, factorial(x));
 
+    show_addr();
 
-    test_console_scroll();
+    str = (char*) malloc(4 * sizeof(char));
+    str[0] = 'A';
+    str[1] = 'B';
+    str[2] = 'C';
+    str[3] = '\0';
+
+    arr = (int*) malloc(3 * sizeof(int));
+
+    arr[0] = 0;
+    arr[1] = 1;
+    arr[2] = 2;
+
+    printf("%s\n%X\n%u %u %u\n%X\n", str, str, arr[0], arr[1], arr[2], arr);
+    
 }

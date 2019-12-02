@@ -6,7 +6,8 @@ Why such a strange name? Because you can be able to do something on system progr
 * bootloader reads and loads any elf32-i386 kernels
 * bootloader switches from real-mode to protected-mode
 * hello-world kernel
-* console done (simplest video driver)
+* console support (simplest video driver)
+* heap support
 
 ## How to use it?
 0. Use this command to build the disk.img of OS:
@@ -31,4 +32,5 @@ Now it works too obvious.
 * JOS
 * MINIX 3
 * github.com/ArseniyBorezkiy/oc-kernel/
-* https://subscribe.ru/archive/comp.soft.myosdev/
+* subscribe.ru/archive/comp.soft.myosdev/
+* habr.com/ru/post/442428/
