@@ -9,7 +9,8 @@
 
 void heap_init(void);
 
-void show_addr(void);
+void heap_show_addr(void);
+void heap_show_bit_map(void);
 
 void *malloc(size_t size);
 

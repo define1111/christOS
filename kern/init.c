@@ -3,6 +3,8 @@
 #include <video.h>
 #include <heap.h>
 
+#define N 512
+
 void
 i386_init(void)
 {
@@ -21,9 +23,9 @@ i386_init(void)
     heap_init();
 
     /* hello world */
-    printf("%s. And %u apostols will be forked.\n", msg, apostols_amount);
+/*    printf("%s. And %u apostols will be forked.\n", msg, apostols_amount);
 
-    show_addr();
+    heap_show_addr();
 
     str = (char*) malloc(4 * sizeof(char));
     str[0] = 'A';
@@ -38,5 +40,8 @@ i386_init(void)
     arr[2] = 2;
 
     printf("%s\n%X\n%u %u %u\n%X\n", str, str, arr[0], arr[1], arr[2], arr);
-    
+
+//    size_t *ptr = (size_t*) malloc(3);
+*/
+    heap_show_bit_map();
 }
