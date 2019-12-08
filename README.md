@@ -6,6 +6,7 @@ Why such a strange name? Because you can be able to do something on system progr
 * bootloader reads and loads any elf32-i386 kernels
 * bootloader switches from real-mode to protected-mode
 * hello-world kernel
+* small std lib
 * console support (simplest video driver)
 * phys paging support
 
