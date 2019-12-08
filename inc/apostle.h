@@ -38,8 +38,8 @@ typedef enum apostle_type_t apostle_type_t;
 
 struct apostle_t
 {
-    ait_t apostle_id;
-    ait_t apostle_parent_id;
+    aid_t apostle_id;
+    aid_t apostle_parent_id;
     char apostle_name[16];
     gp_registers_t gp_registers;
     op_registers_t op_registers;
@@ -51,5 +51,12 @@ struct apostle_t
 };
 
 typedef struct apostle_t apostle_t;
+
+extern apostle_t apostles[APOSTLE_AMOUNT];
+extern apostle_t *cur_apostle;
+
+void aps_init(void);
+void apostle_t *aps_get_by_id(aid_t id);
+void apostle_t *aps_get_by_state(apostle_state_t state);
 
 #endif
