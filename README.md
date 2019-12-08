@@ -9,11 +9,11 @@ Why such a strange name? Because you can be able to do something on system progr
 * small std lib
 * console support (simplest video driver)
 * phys paging support
+* interrupts
 
 ## Wish list:
 * processes on phys paging
 * scheduling
-* interrupts
 
 ## How to use it?
 0. Use this command to build the disk.img of OS:
