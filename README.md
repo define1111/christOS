@@ -7,7 +7,12 @@ Why such a strange name? Because you can be able to do something on system progr
 * bootloader switches from real-mode to protected-mode
 * hello-world kernel
 * console support (simplest video driver)
-* heap support
+* phys paging support
+
+## Wish list:
+* processes on phys paging
+* scheduling
+* interrupts
 
 ## How to use it?
 0. Use this command to build the disk.img of OS:

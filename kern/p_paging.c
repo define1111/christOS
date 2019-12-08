@@ -1,4 +1,4 @@
-#include <heap.h>
+#include <p_paging.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -7,12 +7,12 @@
 
 extern size_t real_end[];
 
-static size_t *heap_begin;
-static size_t *heap_end;
-static size_t heap_page_size;
-static size_t heap_page_amount;
+static size_t *pa_begin;
+static size_t *pa_end;
+static size_t page_size;
+static size_t page_amount;
 
-static uint32_t bit_map[HEAP_PAGE_AMOUNT / (8 * sizeof(uint32_t))];
+static uint32_t bit_map[PHYS_PAGE_AMOUNT / (8 * sizeof(uint32_t))];
 
 static bool is_free(uint32_t i);
 static bool is_free_diap(uint32_t begin, uint32_t end);
@@ -21,18 +21,18 @@ static void set_up_bit(uint32_t i);
 static void set_down_bit(uint32_t i);
 
 void
-heap_init()
+p_paging_init()
 {
-    heap_begin = (size_t*) real_end;
-    heap_page_size = HEAP_PAGE_SIZE;
-    heap_page_amount = HEAP_PAGE_AMOUNT;
-    heap_end = heap_begin + (heap_page_size * heap_page_amount) / sizeof(size_t);
+    pa_begin = (size_t*) real_end;
+    page_size = PHYS_PAGE_SIZE;
+    page_amount = PHYS_PAGE_AMOUNT;
+    pa_end = pa_begin + (page_size * page_amount) / sizeof(size_t);
 
-    memset(bit_map, 0, heap_page_amount / 8);
+    memset(bit_map, 0, page_amount / 8);
 }
 
 void *
-malloc(size_t size)
+get_phys_page(size_t size)
 {
     uint32_t pages; 
     uint32_t i, j;
@@ -41,9 +41,9 @@ malloc(size_t size)
 
     if (size == 0) return NULL;
 
-    pages = (size / heap_page_size) + 1;
+    pages = (size / page_size) + 1;
 
-    for (i = 0; i < heap_page_amount; i++)
+    for (i = 0; i < page_amount; i++)
         if (is_free_diap(i, i + pages))
         {
             flag = true;        
@@ -52,7 +52,7 @@ malloc(size_t size)
 
     if (!flag) return NULL;
 
-    addr = heap_begin + (i * heap_page_size) / sizeof(size_t);
+    addr = pa_begin + (i * page_size) / sizeof(size_t);
 
     for (j = 0; j < pages; i++, j++)
         set_up_bit(i);
@@ -61,36 +61,36 @@ malloc(size_t size)
 } 
 
 void
-free(void *addr, size_t size)
+free_phys_page(void *addr, size_t size)
 {
     size_t *a = (size_t*) addr;
     uint32_t i, j;
     uint32_t pages;
 
-    if (a < heap_begin || a > heap_end)
+    if (a < pa_begin || a > pa_end)
         panic("can't free pointer from no-heap space\n");
 
-    pages = (size / heap_page_size) + 1;
+    pages = (size / page_size) + 1;
 
-    for (i = 0; i < heap_page_amount; ++i)
-        if (a == heap_begin + (i * heap_page_size) / sizeof(size_t)) break;
+    for (i = 0; i < page_amount; ++i)
+        if (a == pa_begin + (i * page_size) / sizeof(size_t)) break;
     
     for (j = 0; j < pages; i++, j++)
         set_down_bit(i);
 }
 
 void
-heap_show_addr()
+p_show_addr()
 {
-    printf("\nheap_begin = %X\nheap_end = %X\n", heap_begin, heap_end);
+    printf("\npa_begin = %X\npa_end = %X\n", pa_begin, pa_end);
 }
 
 void
-heap_show_bit_map()
+p_show_bit_map()
 {
     uint32_t i;
 
-    for (i = 0; i < heap_page_amount; ++i)
+    for (i = 0; i < page_amount; ++i)
         printf("%u", is_free(i));
     printf("\n");
 }       
