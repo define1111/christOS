@@ -21,4 +21,6 @@ i386_init(void)
 
     /* hello world */
     printf("%s. And %u apostols will be forked.\n", msg, apostols_amount);
+
+    p_show_addr();
 }

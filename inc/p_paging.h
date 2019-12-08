@@ -3,9 +3,9 @@
 
 #include <stdint.h>
 
-/* 4 MB for phys pages */
+/* 512 MB for phys pages */
 #define PHYS_PAGE_SIZE (4096)
-#define PHYS_PAGE_AMOUNT (1024) 
+#define PHYS_PAGE_AMOUNT (128 *1024) 
 
 void p_paging_init(void);
 

@@ -30,11 +30,14 @@ obj/bootloader: obj/boot.o obj/main.o
 	objcopy -S -O binary -j .text $@.out $@
 	$(PY) boot/verify.py
 
-obj/kernel: obj/entry.o obj/init.o obj/string.o obj/assert.o obj/panic.o obj/video.o obj/stdio.o obj/p_paging.o obj/pic.o obj/gdt_idt_table.c.o obj/gdt_idt_table.s.o obj/interrupts.c.o obj/interrupts.s.o
+obj/kernel: obj/entry.o obj/init.o obj/string.o obj/assert.o obj/panic.o obj/video.o obj/stdio.o obj/p_paging.o obj/pic.o obj/gdt_idt_table.c.o obj/gdt_idt_table.s.o obj/interrupts.c.o obj/interrupts.s.o obj/reg.o
 	$(LD) $(LDFLAGS) -T kern/kernel.ld -o $@ $^
 
 obj/entry.o: kern/entry.asm
 	$(AS) $(ASFLAGS) $< -o $@
+
+obj/reg.o: kern/reg.s
+	$(GNUAS) $(GNUASFLAGS) -o $@ $<
 
 obj/gdt_idt_table.c.o: kern/gdt_idt_table.c
 	$(CC) -nostdinc $(CFLAGS) -c -o $@ $<
