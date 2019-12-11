@@ -58,3 +58,42 @@ asm_ih_keyboard:
     call asm_load_data_uselectors
     popal
     iretl
+
+/*
+ * Handle IRQ0
+ * void asm_ih_timer()
+ */
+asm_ih_timer:
+    cli
+    pushal
+    call asm_load_data_kselectors
+    mov %esp,%ebp
+    mov %ebp,%ebx
+    pushl %ebx # &reg
+    add $32,%ebx
+    pushl %ebx # &ret addr
+    call ih_timer
+    mov %ebp,%esp
+    call asm_load_data_uselectors
+    popal
+    sti
+    iretl
+
+/*
+ * Handle syscall interrupt
+ * void asm_ih_syscall(unsigned int *function)
+ */
+asm_ih_syscall:
+    pushal
+    call asm_load_data_kselectors
+    mov %esp,%ebp
+    mov %ebp,%ebx
+    add $32,%ebx
+    add $12,%ebx
+    pushl (%ebx) # &function
+    call ih_syscall
+    mov %ebp,%esp
+    mov %eax,28(%esp)
+    call asm_load_data_uselectors
+    popal
+    iretl

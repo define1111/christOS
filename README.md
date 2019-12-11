@@ -6,14 +6,16 @@ Why such a strange name? Because you can be able to do something on system progr
 * bootloader reads and loads any elf32-i386 kernels
 * bootloader switches from real-mode to protected-mode
 * hello-world kernel
-* small std lib
+* small C lib
 * console support (simplest video driver)
-* phys paging support
-* interrupts
+* phys memory paging support
+* interrupts support
 
 ## Wish list:
 * processes on phys paging
 * scheduling
+* syscalls
+* virtual memory paging
 
 ## How to use it?
 0. Use this command to build the disk.img of OS:
