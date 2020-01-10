@@ -2,7 +2,11 @@
 This is my simple operating system designed for self-education purposes.
 Why such a strange name? Because you can be able to do something on system programming only with God's help.
 
+## Status:
+MSU the course of constructing the kernel of the operating system was successfully passed, so the project is thrown into the archive until better times. Most likely I will remake it under the ARM architecture for toys.
+
 ## Features:
+* arch x86 32bit
 * bootloader reads and loads any elf32-i386 kernels
 * bootloader switches from real-mode to protected-mode
 * hello-world kernel
